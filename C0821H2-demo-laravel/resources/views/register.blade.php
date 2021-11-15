@@ -25,13 +25,13 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post" action="{{route('register')}}">
                     @csrf
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <input type="text" class="form-control" name="username" placeholder="username">
+                        <input type="text" class="form-control" name="username" placeholder="email">
                     </div>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
@@ -49,7 +49,7 @@
                         <input type="checkbox">Remember Me
                     </div>
                     <div class="form-group">
-                        <input type="submit" value="Login" class="btn float-right login_btn">
+                        <input type="submit" value="Register" class="btn float-right login_btn">
                     </div>
                 </form>
             </div>

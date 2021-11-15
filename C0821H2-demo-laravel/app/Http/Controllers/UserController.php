@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordRequest;
 use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -27,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -74,6 +77,24 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return response()->json(['message' => 'Delete  success']);
+
+    }
+    public function changePwd()
+    {
+        return view('users.changePwd');
+    }
+
+    public function pwdStore(PasswordRequest $request)
+    {
+
+        if (Hash::check($request->input('oldpwd'), Auth::user()->password)) {
+
+            User::find(auth()->user()->id)->update(['password' => Hash::make($request->input('newpwd'))]);
+
+
+            return redirect()->route('products.index')->with('success', 'Cap nhap thanh cong');
+        }
+        return redirect()->back()->with('error', 'Old password khong dung');
 
     }
 }
